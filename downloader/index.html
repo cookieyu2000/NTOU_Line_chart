@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NTOU Tools Downloader</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header>
+        <h1>NTOU Tools Downloader</h1>
+        <p>Download and install the desktop app for your platform.</p>
+      </header>
+
+      <section class="card">
+        <h2>Download</h2>
+        <div class="actions">
+          <button id="download-win">Download for Windows</button>
+          <button id="download-mac">Download for macOS</button>
+        </div>
+        <progress id="progress" class="hidden" max="100" value="0"></progress>
+        <p id="status" class="status">Ready.</p>
+      </section>
+
+      <section class="card">
+        <h2>Install</h2>
+        <ol>
+          <li>Windows: run the downloaded <code>.exe</code> installer.</li>
+          <li>macOS: open the <code>.dmg</code> and drag the app to Applications.</li>
+        </ol>
+      </section>
+
+      <footer>
+        <span>Version v1.0</span>
+      </footer>
+    </div>
+
+    <script src="renderer.js"></script>
+  </body>
+</html>

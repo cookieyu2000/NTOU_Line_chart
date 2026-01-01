@@ -1,8 +1,18 @@
 # 客製化折線圖
 
-這是 Windows 桌面版工具，可快速製作客製化折線圖。支援 Excel 貼上、多序列、區間色帶、圖片匯出，適合一般使用者。
+這是 Windows/macOS 桌面版工具，可快速製作客製化折線圖。支援 Excel 貼上、多序列、區間色帶、圖片匯出，適合一般使用者。
 
 **English guide:** [README.md](README.md)
+
+## 下載
+
+1. 到 GitHub 專案頁右側的 **Releases**。
+2. 下載對應作業系統的安裝檔：
+   - Windows：`NTOU_Tools_Setup.exe`
+   - macOS：`NTOU_Tools.dmg`
+3. 安裝並開啟：
+   - Windows：雙擊 `.exe`。
+   - macOS：開啟 `.dmg`，把 App 拖到 **Applications** 後開啟。
 
 ## 使用方式
 

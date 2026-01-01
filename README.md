@@ -1,8 +1,18 @@
 # Custom Line Chart
 
-This is a Windows desktop tool for creating customizable line charts. It supports Excel paste, multiple series, interval bands, and image export. Designed for non-technical users.
+This is a Windows/macOS desktop tool for creating customizable line charts. It supports Excel paste, multiple series, interval bands, and image export. Designed for non-technical users.
 
 **Chinese guide:** [README.zh-TW.md](README.zh-TW.md)
+
+## Download
+
+1. Go to **Releases** on the right side of the GitHub page.
+2. Download the installer for your OS:
+   - Windows: `NTOU_Tools_Setup.exe`
+   - macOS: `NTOU_Tools.dmg`
+3. Install and launch:
+   - Windows: double-click the `.exe`.
+   - macOS: open the `.dmg`, drag the app into **Applications**, then open it.
 
 ## How to Use
 

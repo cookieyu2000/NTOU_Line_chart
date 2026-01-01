@@ -1,5 +1,6 @@
 import json
 import os
+import sys
 import tkinter as tk
 from tkinter import ttk, messagebox, filedialog, colorchooser
 
@@ -10,8 +11,19 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 from matplotlib.ticker import MaxNLocator
 
+try:
+    from PIL import Image, ImageTk
+except ImportError:
+    Image = None
+    ImageTk = None
+
 rcParams["font.sans-serif"] = ["PingFang TC", "Microsoft JhengHei", "Noto Sans CJK TC", "SimHei", "Arial Unicode MS"]
 rcParams["axes.unicode_minus"] = False
+
+
+def resource_path(relative_path):
+    base_path = getattr(sys, "_MEIPASS", os.path.abspath(os.path.dirname(__file__)))
+    return os.path.join(base_path, relative_path)
 
 
 def parse_csv_numbers(text, label):
@@ -238,13 +250,23 @@ class LineChartApp:
             foreground=[("active", "#1a0f2a"), ("pressed", "#1a0f2a")],
         )
 
+        self.app_icon = None
+        self.banner_image = None
+        self.load_branding()
+
         main = ttk.Frame(root, padding=14)
         main.grid(row=0, column=0, sticky="nsew")
         root.columnconfigure(0, weight=1)
         root.rowconfigure(0, weight=1)
 
-        title = ttk.Label(main, text="折線圖設定面板", style="Header.TLabel")
-        title.grid(row=0, column=0, columnspan=2, sticky="w", pady=(0, 10))
+        header = ttk.Frame(main)
+        header.grid(row=0, column=0, columnspan=2, sticky="w", pady=(0, 10))
+        title_col = 0
+        if self.banner_image:
+            ttk.Label(header, image=self.banner_image).grid(row=0, column=0, padx=(0, 10))
+            title_col = 1
+        title = ttk.Label(header, text="折線圖設定面板", style="Header.TLabel")
+        title.grid(row=0, column=title_col, sticky="w")
 
         pane = ttk.PanedWindow(main, orient="horizontal")
         pane.grid(row=1, column=0, columnspan=2, sticky="nsew")
@@ -409,7 +431,7 @@ class LineChartApp:
 
         self.sample_excel_text = ""
         sample_config = {}
-        config_path = os.path.join(os.path.dirname(__file__), "sample_data.json")
+        config_path = resource_path("sample_data.json")
         if os.path.exists(config_path):
             try:
                 with open(config_path, "r", encoding="utf-8") as handle:
@@ -420,7 +442,7 @@ class LineChartApp:
                 sample_config = {}
 
         if not sample_config:
-            sample_path = os.path.join(os.path.dirname(__file__), "sample_excel.txt")
+            sample_path = resource_path("sample_excel.txt")
             if os.path.exists(sample_path):
                 try:
                     with open(sample_path, "r", encoding="utf-8") as handle:
@@ -551,6 +573,29 @@ class LineChartApp:
         self.default_export_ratio = self.sample_export_ratio
 
         self.apply_sample_data(self.sample_series)
+
+    def load_branding(self):
+        image_path = resource_path("messageImage_1767257219427.jpg")
+        if not Image or not ImageTk or not os.path.exists(image_path):
+            return
+        try:
+            image = Image.open(image_path)
+            image = image.convert("RGBA")
+        except OSError:
+            return
+
+        resample = getattr(Image, "Resampling", Image).LANCZOS
+        icon_image = image.copy()
+        icon_image.thumbnail((256, 256), resample)
+        self.app_icon = ImageTk.PhotoImage(icon_image)
+        try:
+            self.root.iconphoto(True, self.app_icon)
+        except tk.TclError:
+            pass
+
+        banner_image = image.copy()
+        banner_image.thumbnail((96, 96), resample)
+        self.banner_image = ImageTk.PhotoImage(banner_image)
 
     def add_series(self):
         index = len(self.series_rows) + 1
